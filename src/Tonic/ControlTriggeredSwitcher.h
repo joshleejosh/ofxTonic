@@ -42,8 +42,8 @@ namespace Tonic {
             ControlGeneratorOutput indexOutput = inputIndex_.tick(context);
             int index = indexOutput.value;
 
-            // ONLY send has-changed message when explicitly triggered AND the value has changed.
-            if (trigger.tick(context).triggered && index != lastInputIndex_) {
+            // ONLY send has-changed message when explicitly triggered.
+            if (trigger.tick(context).triggered) {// && index != lastInputIndex_) {
                 lastInputIndex_ = index;
                 ControlGeneratorOutput output = inputs_.at(clamp(index, 0, inputs_.size() -1 )).tick(context);
                 output_.triggered = true;
