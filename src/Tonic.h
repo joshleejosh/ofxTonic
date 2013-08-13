@@ -80,5 +80,10 @@
 #include "Tonic/ControlSnapToScale.h"
 #include "Tonic/ControlMidiToFreq.h"
 
+// ------- Custom Generators --------
+
+#include "Tonic/ControlRandomTrigger.h"
+#include "Tonic/ControlTriggerInterval.h"
+
 
 #endif
