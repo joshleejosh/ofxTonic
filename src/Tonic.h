@@ -84,6 +84,7 @@
 
 #include "Tonic/ControlRandomTrigger.h"
 #include "Tonic/ControlTriggerInterval.h"
+#include "Tonic/ControlTriggeredSwitcher.h"
 
 
 #endif
