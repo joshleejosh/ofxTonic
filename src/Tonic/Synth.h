@@ -60,6 +60,7 @@ namespace Tonic{
       void addParametersFromSynth(Synth synth);
       
       void setParameter(string name, float value, bool normalized = false);
+      float getParameterValue(string name);
       
       vector<ControlParameter>  getParameters();
       
@@ -186,6 +187,10 @@ namespace Tonic{
     void setParameter(string name, float value = 1.f, bool normalized = false)
     {
       gen()->setParameter(name, value, normalized);
+    }
+
+    float getParameterValue(string name) {
+        return gen()->getParameterValue(name);
     }
   
     

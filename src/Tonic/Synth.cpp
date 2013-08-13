@@ -42,6 +42,19 @@ namespace Tonic {
       }
 
     }
+
+    //! Returns 0 if the parameter is not found.
+    float Synth_::getParameterValue(string name) {
+        float rv = 0;
+        for (std::vector<string>::iterator it = orderedParameterNames_.begin(); it != orderedParameterNames_.end(); it++) {
+            if (!it->compare(name)) {
+                std::map<string, ControlParameter>::iterator paramIt = parameters_.find(*it);
+                rv = paramIt->second.getValue();
+                break;
+            }
+        }
+        return rv;
+    }
     
     ControlParameter Synth_::addParameter(string name, TonicFloat initialValue)
     {
