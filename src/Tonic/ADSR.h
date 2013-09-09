@@ -143,39 +143,42 @@ namespace Tonic {
               
               // fill up part of the ramp then switch segment
 
-              if (bIsExponential){
+              if (remainder > 0) {
+                if (bIsExponential){
 
-                // one pole filter
-                for (unsigned long i=0; i<remainder; i++){
-                  onePoleLPFTick(targetValue, lastValue, pole);
-                  *fdata++ = lastValue;
+                  // one pole filter
+                  for (unsigned long i=0; i<remainder; i++){
+                    onePoleLPFTick(targetValue, lastValue, pole);
+                    *fdata++ = lastValue;
+                  }
+
                 }
-                
-              }
-              else{
-                
-                #ifdef USE_APPLE_ACCELERATE
-                // starting point
-                lastValue += increment;
-                
-                // vector calculation
-                vDSP_vramp(&lastValue, &increment, fdata, 1, remainder);
-                
-                // end point
-                lastValue += increment*(remainder-1);
-                fdata += remainder;
-                
-                #else
-                for (unsigned long i=0; i<remainder; i++){
+                else{
+
+                  #ifdef USE_APPLE_ACCELERATE
+                  // starting point
                   lastValue += increment;
-                  *fdata++ = lastValue;
+
+                  // vector calculation
+                  vDSP_vramp(&lastValue, &increment, fdata, 1, remainder);
+
+                  // end point
+                  lastValue += increment*(remainder-1);
+                  fdata += remainder;
+
+                  #else
+                  for (unsigned long i=0; i<remainder; i++){
+                    lastValue += increment;
+                    *fdata++ = lastValue;
+                  }
+                  #endif
                 }
-                #endif
+
+                segCounter += remainder;
+                samplesRemaining -= remainder;
+
               }
-              
-              segCounter += remainder;
-              samplesRemaining -= remainder;
-              
+
               // switch segment
               if (state == ATTACK){
                 switchState(DECAY);
@@ -186,7 +189,7 @@ namespace Tonic {
               else{
                 switchState(NEUTRAL);
               }
-              
+
             }
             else{
               
