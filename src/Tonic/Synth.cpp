@@ -9,8 +9,9 @@
 //
 
 
-#include "Synth.h"
 #include <sstream>
+#include <float.h>
+#include "Synth.h"
 
 namespace Tonic {
   
@@ -43,9 +44,9 @@ namespace Tonic {
 
     }
 
-    //! Returns 0 if the parameter is not found.
+    //! Returns FLT_MIN if the parameter is not found.
     float Synth_::getParameterValue(string name) {
-        float rv = 0;
+        float rv = FLT_MIN;
         for (std::vector<string>::iterator it = orderedParameterNames_.begin(); it != orderedParameterNames_.end(); it++) {
             if (!it->compare(name)) {
                 std::map<string, ControlParameter>::iterator paramIt = parameters_.find(*it);
