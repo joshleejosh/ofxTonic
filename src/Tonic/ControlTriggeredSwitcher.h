@@ -57,7 +57,7 @@ namespace Tonic {
 
     /*!
       ControlTriggeredSwitcher allows you to switch between an unlimited number of inputs (added via addInput).
-      Unlike regular ControlSwitcher, it only switches values when triggered.
+      Unlike regular ControlSwitcher, it only switches values when triggered; this avoids weird glides.
       The "active" input is controlled by the value of inputIndex.
      */
 
